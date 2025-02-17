@@ -1,0 +1,1708 @@
+local v0 = game:GetService("Stats");
+local v1 = game:GetService("Players");
+local v2 = game:GetService("RunService");
+local v3 = game:GetService("ReplicatedStorage");
+local v4 = game:GetService("VirtualInputManager");
+local v4 = game:GetService("VirtualInputManager");
+local v5 = game:GetService("TweenService");
+local v6;
+local v7;
+local v8 = loadstring(game:HttpGet("https://raw.githubusercontent.com/flezzpe/Nurysium/main/nurysium_helper.lua"))();
+local function v9()
+	for v500, v501 in workspace:WaitForChild("TrainingBalls"):GetChildren() do
+		if (v501:IsA("BasePart") and v501:GetAttribute("realBall")) then
+			return v501;
+		end
+	end
+end
+local v10;
+local v11 = v1.LocalPlayer;
+local v12 = workspace.CurrentCamera;
+local v13 = false;
+print("-----------------");
+print("coded by CEO PhantomZ");
+print("-----------------");
+local v14;
+local v15;
+local v16, v17, v18, v19, v20, v21;
+local v22 = nil;
+local v23 = nil;
+local v24 = nil;
+local v25 = nil;
+local v26 = false;
+local v27 = false;
+local v28 = false;
+local v29 = false;
+local v30 = false;
+local v31 = false;
+local v32 = false;
+local v33 = false;
+local v34 = false;
+local v35 = false;
+local v36 = false;
+local v37 = false;
+local v38 = false;
+local v39 = false;
+local v40 = false;
+local v41 = 15;
+local v42 = {game:GetService("AnimationFromVideoCreatorService"),game:GetService("AdService")};
+function initializate(v133)
+	local v134 = Instance.new("Folder", game:GetService("CoreGui"));
+	v134.Name = v133;
+	v23 = Instance.new("Sound", v134);
+	v23.SoundId = "rbxassetid://6607204501";
+	v23.Volume = 6;
+end
+local function v43(v138)
+	task.spawn(function()
+		local v502;
+		local v503 = math.huge;
+		for v632, v633 in workspace.Alive:GetChildren() do
+			if (v633.Name ~= v1.LocalPlayer.Name) then
+				local v793 = (v138.Position - v633.HumanoidRootPart.Position).Magnitude;
+				if (v793 < v503) then
+					v24 = v633;
+					v503 = v793;
+				end
+			end
+		end
+		return v24;
+	end);
+end
+function resolve_parry_Remote()
+	for v504, v505 in pairs(v42) do
+		local v506 = v505:FindFirstChildOfClass("RemoteEvent");
+		if (v506 and v506.Name:find("\n")) then
+			v14 = v506;
+		end
+	end
+end
+resolve_parry_Remote();
+function walk_to(v139)
+	v11.Character.Humanoid:MoveTo(v139);
+end
+local function v44()
+	for v507, v508 in workspace.Map:GetDescendants() do
+		if (v508.Name == "BALLSPAWN") then
+			return v508;
+		end
+	end
+end
+local v45 = {canParry=true,is_Spamming=false,parry_Range=30,spam_Range=0,hit_Count=0,hit_Time=tick(),ball_Warping=tick(),is_ball_Warping=false,last_target=nil};
+workspace:WaitForChild("Balls").ChildRemoved:Connect(function(v140)
+	v45.hit_Count = 0;
+	v45.is_ball_Warping = false;
+	v45.is_Spamming = false;
+	v45.canParry = true;
+	v45.last_target = nil;
+end);
+v3.Remotes.ParrySuccessAll.OnClientEvent:Connect(function()
+	v45.hit_Count += 1
+	task.delay(0.185, function()
+		v45.hit_Count -= 1
+	end);
+end);
+local v46;
+function ManualSpam()
+	if v46 then
+		v46:Destroy();
+		v46 = nil;
+		return;
+	end
+	v46 = Instance.new("ScreenGui");
+	v46.Name = "MauaulSpam";
+	v46.Parent = game.CoreGui;
+	v46.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+	v46.ResetOnSpawn = false;
+	local v152 = Instance.new("Frame");
+	v152.Name = "Main";
+	v152.Parent = v46;
+	v152.BackgroundColor3 = Color3.fromRGB(0, 0, 0);
+	v152.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v152.BorderSizePixel = 0;
+	v152.Position = UDim2.new(0.41414836, 0, 0.404336721, 0);
+	v152.Size = UDim2.new(0.227479532, 0, 0.191326529, 0);
+	local v160 = Instance.new("UICorner");
+	v160.Parent = v152;
+	local v162 = Instance.new("Frame");
+	v162.Name = "IndercantorBlahblah";
+	v162.Parent = v152;
+	v162.BackgroundColor3 = Color3.fromRGB(255, 0, 0);
+	v162.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v162.BorderSizePixel = 0;
+	v162.Position = UDim2.new(0.0280000009, 0, 0.0733333305, 0);
+	v162.Size = UDim2.new(0.0719999969, 0, 0.119999997, 0);
+	local v170 = Instance.new("UICorner");
+	v170.CornerRadius = UDim.new(1, 0);
+	v170.Parent = v162;
+	local v173 = Instance.new("UIAspectRatioConstraint");
+	v173.Parent = v162;
+	local v175 = Instance.new("TextLabel");
+	v175.Name = "PC";
+	v175.Parent = v152;
+	v175.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+	v175.BackgroundTransparency = 1;
+	v175.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v175.BorderSizePixel = 0;
+	v175.Position = UDim2.new(0.547999978, 0, 0.826666653, 0);
+	v175.Size = UDim2.new(0.451999992, 0, 0.173333332, 0);
+	v175.Font = Enum.Font.Unknown;
+	v175.Text = "PC: E to spam";
+	v175.TextColor3 = Color3.fromRGB(57, 57, 57);
+	v175.TextScaled = true;
+	v175.TextSize = 16;
+	v175.TextWrapped = true;
+	local v191 = Instance.new("UITextSizeConstraint");
+	v191.Parent = v175;
+	v191.MaxTextSize = 16;
+	local v194 = Instance.new("UIAspectRatioConstraint");
+	v194.Parent = v175;
+	v194.AspectRatio = 4.346;
+	local v197 = Instance.new("TextButton");
+	v197.Name = "IndercanotTextBlah";
+	v197.Parent = v152;
+	v197.Active = false;
+	v197.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+	v197.BackgroundTransparency = 1;
+	v197.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v197.BorderSizePixel = 0;
+	v197.Position = UDim2.new(0.164000005, 0, 0.326666653, 0);
+	v197.Selectable = false;
+	v197.Size = UDim2.new(0.667999983, 0, 0.346666664, 0);
+	v197.Font = Enum.Font.GothamBold;
+	v197.Text = "OFF";
+	v197.TextColor3 = Color3.fromRGB(255, 255, 255);
+	v197.TextScaled = true;
+	v197.TextSize = 24;
+	v197.TextWrapped = true;
+	local v215 = Instance.new("UIGradient");
+	v215.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),ColorSequenceKeypoint.new(0.75, Color3.fromRGB(255, 0, 4)),ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))});
+	v215.Parent = v197;
+	local v218 = Instance.new("UITextSizeConstraint");
+	v218.Parent = v197;
+	v218.MaxTextSize = 52;
+	local v221 = Instance.new("UIAspectRatioConstraint");
+	v221.Parent = v197;
+	v221.AspectRatio = 3.212;
+	local v224 = Instance.new("UIAspectRatioConstraint");
+	v224.Parent = v152;
+	v224.AspectRatio = 1.667;
+	v46.Name = "MauaulSpam";
+	v46.Parent = game.CoreGui;
+	v46.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+	v46.ResetOnSpawn = false;
+	v152.Name = "Main";
+	v152.Parent = v46;
+	v152.BackgroundColor3 = Color3.fromRGB(0, 0, 0);
+	v152.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v152.BorderSizePixel = 0;
+	v152.Position = UDim2.new(0.41414836, 0, 0.404336721, 0);
+	v152.Size = UDim2.new(0.227479532, 0, 0.191326529, 0);
+	v160.Parent = v152;
+	v162.Name = "IndercantorBlahblah";
+	v162.Parent = v152;
+	v162.BackgroundColor3 = Color3.fromRGB(255, 0, 0);
+	v162.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v162.BorderSizePixel = 0;
+	v162.Position = UDim2.new(0.0280000009, 0, 0.0733333305, 0);
+	v162.Size = UDim2.new(0.0719999969, 0, 0.119999997, 0);
+	v170.CornerRadius = UDim.new(1, 0);
+	v170.Parent = v162;
+	v173.Parent = v162;
+	v175.Name = "PC";
+	v175.Parent = v152;
+	v175.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+	v175.BackgroundTransparency = 1;
+	v175.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v175.BorderSizePixel = 0;
+	v175.Position = UDim2.new(0.547999978, 0, 0.826666653, 0);
+	v175.Size = UDim2.new(0.451999992, 0, 0.173333332, 0);
+	v175.Font = Enum.Font.Unknown;
+	v175.Text = "PC: E to spam";
+	v175.TextColor3 = Color3.fromRGB(57, 57, 57);
+	v175.TextScaled = true;
+	v175.TextSize = 16;
+	v175.TextWrapped = true;
+	v191.Parent = v175;
+	v191.MaxTextSize = 16;
+	v194.Parent = v175;
+	v194.AspectRatio = 4.346;
+	v197.Name = "IndercanotTextBlah";
+	v197.Parent = v152;
+	v197.Active = false;
+	v197.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+	v197.BackgroundTransparency = 1;
+	v197.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	v197.BorderSizePixel = 0;
+	v197.Position = UDim2.new(0.164000005, 0, 0.326666653, 0);
+	v197.Selectable = false;
+	v197.Size = UDim2.new(0.667999983, 0, 0.346666664, 0);
+	v197.Font = Enum.Font.GothamBold;
+	v197.Text = "OFF";
+	v197.TextColor3 = Color3.fromRGB(255, 255, 255);
+	v197.TextScaled = true;
+	v197.TextSize = 24;
+	v197.TextWrapped = true;
+	v215.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),ColorSequenceKeypoint.new(0.75, Color3.fromRGB(255, 0, 4)),ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))});
+	v215.Parent = v197;
+	v218.Parent = v197;
+	v218.MaxTextSize = 52;
+	v221.Parent = v197;
+	v221.AspectRatio = 3.212;
+	v224.Parent = v152;
+	v224.AspectRatio = 1.667;
+	local function v227()
+		local v509 = Instance.new("LocalScript", v197);
+		local v510 = v509.Parent;
+		local v511 = v510.UIGradient;
+		local v512 = v509.Parent.Parent.IndercantorBlahblah;
+		local v513 = game:GetService("UserInputService");
+		local v514 = game:GetService("RunService");
+		local v515 = {ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),ColorSequenceKeypoint.new(0.75, Color3.fromRGB(0, 255, 0)),ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))};
+		local v516 = {ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),ColorSequenceKeypoint.new(0.75, Color3.fromRGB(255, 0, 0)),ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))};
+		local v517 = v516;
+		local v518 = v515;
+		local v519 = false;
+		local v520 = false;
+		local v521 = 1;
+		local v522;
+		local function v523()
+			v520 = true;
+			v522 = tick();
+		end
+		v514.Heartbeat:Connect(function()
+			if v520 then
+				local v794 = tick() - v522;
+				local v795 = math.clamp(v794 / v521, 0, 1);
+				local v796 = {};
+				for v820 = 1, #v517 do
+					local v821 = v517[v820].Value;
+					local v822 = v518[v820].Value;
+					v796[v820] = ColorSequenceKeypoint.new(v517[v820].Time, v821:Lerp(v822, v795));
+				end
+				v511.Color = ColorSequence.new(v796);
+				if (v795 >= 1) then
+					v520 = false;
+					v517, v518 = v518, v517;
+				end
+			end
+		end);
+		local function v524()
+			if not v520 then
+				v519 = not v519;
+				if v519 then
+					v518 = v515;
+					v512.BackgroundColor3 = Color3.new(0, 1, 0);
+				else
+					v518 = v516;
+					v512.BackgroundColor3 = Color3.new(1, 0, 0);
+				end
+				v523();
+			end
+		end
+		v510.MouseButton1Click:Connect(v524);
+		v513.InputBegan:Connect(function(v634, v635)
+			if v635 then
+				return;
+			end
+			if (v634.KeyCode == Enum.KeyCode.E) then
+				v524();
+			end
+		end);
+		local v525 = {game:GetService("AdService"),game:GetService("SocialService")};
+		local v526 = nil;
+		function resolve_parry_Remote()
+			local v636 = game:GetService("VirtualUser"):WaitForChild("\n\n\n\n\n");
+			if (not v636 or not v636:IsA("RemoteEvent")) then
+				return;
+			end
+			v526 = v636;
+		end
+		resolve_parry_Remote();
+		local v527 = workspace.CurrentCamera;
+		local v528 = game.Players.LocalPlayer:GetMouse();
+		local function v529()
+			local v637 = nil;
+			local v638 = math.huge;
+			for v686, v687 in pairs(workspace.Alive:GetChildren()) do
+				if (v687:IsA("Model") and v687:FindFirstChild("HumanoidRootPart")) then
+					local v824 = v527:WorldToViewportPoint(v687.HumanoidRootPart.Position);
+					local v825 = (Vector2.new(v824.X, v824.Y) - Vector2.new(v528.X, v528.Y)).Magnitude;
+					if (v825 < v638) then
+						v637 = v687;
+						v638 = v825;
+					end
+				end
+			end
+			return v637;
+		end
+		v514.RenderStepped:Connect(function()
+			if (v519 and v526) then
+				local v798 = v529();
+				if v798 then
+					local v840 = v527.CFrame;
+					local v841, v842, v843, v844, v845, v846, v847, v848, v849, v850, v851, v852 = v840:GetComponents();
+					v526:FireServer(0, CFrame.new(v841, v842, v843, v844, v845, v846, v847, v848, v849, v850, v851, v852), {[v798.Name]=v798.HumanoidRootPart.Position}, {v798.HumanoidRootPart.Position.X,v798.HumanoidRootPart.Position.Y}, false);
+				end
+			end
+		end);
+	end
+	coroutine.wrap(v227)();
+	local function v228()
+		local v530 = Instance.new("LocalScript", v152);
+		local v531 = game:GetService("UserInputService");
+		local v532 = v530.Parent;
+		local v533;
+		local v534;
+		local v535;
+		local v536;
+		local function v537(v639)
+			local v640 = v639.Position - v535;
+			local v641 = UDim2.new(v536.X.Scale, v536.X.Offset + v640.X, v536.Y.Scale, v536.Y.Offset + v640.Y);
+			local v642 = game:GetService("TweenService");
+			local v643 = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out);
+			local v644 = v642:Create(v532, v643, {Position=v641});
+			v644:Play();
+		end
+		v532.InputBegan:Connect(function(v645)
+			if ((v645.UserInputType == Enum.UserInputType.MouseButton1) or (v645.UserInputType == Enum.UserInputType.Touch)) then
+				v533 = true;
+				v535 = v645.Position;
+				v536 = v532.Position;
+				v645.Changed:Connect(function()
+					if (v645.UserInputState == Enum.UserInputState.End) then
+						v533 = false;
+					end
+				end);
+			end
+		end);
+		v532.InputChanged:Connect(function(v646)
+			if ((v646.UserInputType == Enum.UserInputType.MouseMovement) or (v646.UserInputType == Enum.UserInputType.Touch)) then
+				v534 = v646;
+			end
+		end);
+		v531.InputChanged:Connect(function(v647)
+			if (v533 and (v647 == v534)) then
+				v537(v647);
+			end
+		end);
+	end
+	coroutine.wrap(v228)();
+end
+local function v47(v229, v230, v231)
+	return math.max(v230, math.min(v231, v229));
+end
+local v48 = v8.getBall();
+wait(0.1);
+local v49 = Instance.new("Part", workspace);
+local v50 = Instance.new("Part", workspace);
+wait(0.5);
+v49.Color = Color3.new(0, 1, 0);
+v49.Material = Enum.Material.ForceField;
+v49.Transparency = 0.5;
+v49.Anchored = true;
+v49.CanCollide = false;
+v49.CastShadow = false;
+v49.Shape = Enum.PartType.Ball;
+v49.Size = Vector3.new(30, 30, 30);
+v50.Color = Color3.new(1, 0, 0);
+v50.Material = Enum.Material.ForceField;
+v50.Transparency = 0.5;
+v50.Anchored = true;
+v50.CanCollide = false;
+v50.CastShadow = false;
+v50.Shape = Enum.PartType.Ball;
+v50.Size = Vector3.new(v45.spam_Range, v45.spam_Range, v45.spam_Range);
+local v69 = Instance.new("Highlight");
+v69.Parent = v50;
+v69.Enabled = true;
+v69.FillTransparency = 0;
+v69.OutlineColor = Color3.new(1, 1, 1);
+local v74 = Instance.new("Highlight");
+v74.Parent = v49;
+v74.Enabled = true;
+v74.FillTransparency = 0;
+v74.OutlineColor = Color3.new(1, 1, 1);
+task.spawn(function()
+	v17 = v2.RenderStepped:Connect(function()
+		if v33 then
+			v49.Transparency = 0;
+			v49.Material = Enum.Material.ForceField;
+			v49.Size = Vector3.new(v45.parry_Range, v45.parry_Range, v45.parry_Range);
+			v49.CFrame = CFrame.new(v11.Character.PrimaryPart.Position);
+			v50.Transparency = 0;
+			v50.Material = Enum.Material.ForceField;
+			v50.Size = Vector3.new(v45.spam_Range, v45.spam_Range, v45.spam_Range);
+			v50.CFrame = CFrame.new(v11.Character.PrimaryPart.Position);
+		else
+			v49.Material = Enum.Material.ForceField;
+			v49.Transparency = 1;
+			v50.Material = Enum.Material.ForceField;
+			v50.Transparency = 1;
+		end
+	end);
+end);
+function getClosestEntityToMouse()
+	local v232 = nil;
+	local v233 = math.huge;
+	local v234 = game.Players.LocalPlayer:GetMouse();
+	if not workspace:FindFirstChild("Alive") then
+		return nil;
+	end
+	for v538, v539 in pairs(workspace.Alive:GetChildren()) do
+		if v539:IsA("Model") then
+			local v702 = v539:FindFirstChild("HumanoidRootPart");
+			if v702 then
+				local v826 = v12:WorldToViewportPoint(v702.Position);
+				local v827 = (Vector2.new(v826.X, v826.Y) - Vector2.new(v234.X, v234.Y)).Magnitude;
+				if (v827 < v233) then
+					v232 = v539;
+					v233 = v827;
+				end
+			else
+			end
+		else
+		end
+	end
+	if not v232 then
+	else
+	end
+	return v232;
+end
+task.defer(function()
+	local v235 = game:GetService("RunService");
+	local v236 = game:GetService("Players");
+	local function v237(v540, v541)
+		local v542 = (v541 - v540).Unit;
+		local v543 = Ray.new(v540, v542 * 10);
+		local v544, v545 = workspace:FindPartOnRay(v543, v11.Character);
+		if v544 then
+			local v703 = (v541 - v545).Unit + Vector3.new(0, 0, 0.5);
+			return v540 + (v703 * 10);
+		end
+		return v541;
+	end
+	v16 = v235.Heartbeat:Connect(function()
+		if (not v34 or not workspace.Alive:FindFirstChild(v11.Name)) then
+			return;
+		end
+		local v546 = v8.getBall();
+		if (not v546 or not v24) then
+			return;
+		end
+		local v547 = v24:FindFirstChild("HumanoidRootPart");
+		if not v547 then
+			walk_to(v11.Character.HumanoidRootPart.Position + Vector3.new(math.sin(tick()) * math.random(35, 50), 0, math.cos(tick()) * math.random(35, 50)));
+			return;
+		end
+		local v548 = tick();
+		local v549 = v548 % 4;
+		local v550 = v546.Position;
+		local v551 = v11:DistanceFromCharacter(v550);
+		local v552 = v11.Character.PrimaryPart.Position;
+		local v553 = v547.Position;
+		local v554 = v11:DistanceFromCharacter(v553);
+		local v555 = v547.CFrame.LookVector;
+		local v556 = Vector3.zero;
+		local v557 = v24:FindFirstChildOfClass("Humanoid");
+		if (v557 and (v557:GetState() == Enum.HumanoidStateType.Jumping) and (v11.Character.Humanoid.FloorMaterial ~= Enum.Material.Air)) then
+			v11.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);
+		end
+		if (((v550 - v552):Dot(v11.Character.PrimaryPart.CFrame.LookVector) < -0.2) and (v549 <= 2)) then
+			return;
+		end
+		if v45.is_Spamming then
+			if (v549 <= 2) then
+				v556 = v553 + ((v552 - v553).Unit * 8);
+			else
+				v556 = v553 - (v555 * (math.random(8.5, 13.5) + (v551 / math.random(8, 20))));
+			end
+		else
+			for v801, v802 in pairs(v236:GetPlayers()) do
+				if ((v802 ~= v11) and workspace.Alive:FindFirstChild(v802.Name)) then
+					local v853 = v802.Character and v802.Character.PrimaryPart.Position;
+					if (v853 and ((v552 - v853).Magnitude < 10)) then
+						local v864 = (v552 - v853).Unit * 15;
+						v552 = v552 + v864;
+					end
+				end
+			end
+			if (v549 <= 2) then
+				v556 = (v554 > 10) and (v553 + ((v552 - v553).Unit * 25));
+			else
+				v556 = v553 - (v555 * (math.random(8.5, 13.5) + (v551 / math.random(8, 20))));
+			end
+		end
+		if ((v552 - v553).Magnitude < 8) then
+			v556 = v553 + ((v552 - v553).Unit * 35);
+		end
+		if (v551 < 8) then
+			v556 = v552 + ((v552 - v550).Unit * 10);
+		end
+		v556 = v237(v552, v556);
+		walk_to(v556 + Vector3.new(math.sin(v548) * 10, 0, math.cos(v548) * 10));
+	end);
+end);
+task.defer(function()
+	v21 = v2.Stepped:Connect(function()
+		if (v35 and workspace.Alive:FindFirstChild(v11.Name)) then
+			local v704 = v8.getBall();
+			if not v704 then
+				return;
+			end
+			local v705 = v11.Character;
+			local v706 = v704.Position;
+			local v707 = (v705.HumanoidRootPart.Position - v706).Magnitude;
+			local v708 = game:GetService("Stats"):FindFirstChild("PerformanceStats"):FindFirstChild("Ping"):GetValue() or 0;
+			local v709 = math.clamp(15 + (v708 / 50), 15, 50);
+			local v710 = tick() * 2;
+			local v711 = Vector3.new(math.cos(v710) * v709, math.sin(v710) * 5, math.sin(v710) * v709);
+			local v712 = v706 + v711;
+			v705.HumanoidRootPart.CFrame = CFrame.new(v712, v706);
+		end
+	end);
+	v20 = v2.Heartbeat:Connect(function()
+		local v558 = v8.getBall();
+		if (not v558 or not v36) then
+			return;
+		end
+		local v559 = v11.Character;
+		local v560 = v558.Position;
+		if (v36 and (v558:GetAttribute("target") == v11.Name) and workspace.Alive:FindFirstChild(v11.Name)) then
+			local v714 = 10;
+			local v715 = (v560 - v559.HumanoidRootPart.Position).Unit;
+			local v716 = v560 - (v715 * v714);
+			v559.HumanoidRootPart.CFrame = CFrame.new(v716);
+		end
+	end);
+end);
+local v79 = nil;
+local v80 = tick() - v45.hit_Time;
+v2.Heartbeat:Connect(function()
+	v80 = tick() - v45.hit_Time;
+	task.spawn(function()
+		v79 = getClosestEntityToMouse();
+	end);
+end);
+task.spawn(function()
+	v18 = v2.Heartbeat:Connect(function()
+		if (not v29 or not workspace.Alive:FindFirstChild(v11.Name) or v30) then
+			v45.hit_Count = 0;
+			v45.is_Spamming = false;
+			v45.last_target = nil;
+			v10 = false;
+			v45.spam_Range = 0;
+			return;
+		end
+		if (v24 and workspace.Alive:FindFirstChild(v24.Name) and ((not v13 and v45.is_Spamming) or v13)) then
+			local v722 = v11.Character.PrimaryPart.Position;
+			local v723 = v24.HumanoidRootPart.Position;
+			local v724 = v11:DistanceFromCharacter(v723);
+			if (v724 <= v45.spam_Range) then
+				v10 = true;
+				local v828 = v12.CFrame;
+				local v829 = Vector3.new(math.random(-1000, 1000), math.random(0, 1000), math.random(100, 1000));
+				local v830 = v79.HumanoidRootPart.Position;
+				local v831 = {{[v79.Name]=v830},{v830.X,v830.Y}};
+				task.defer(function()
+					for v861 = 1, v41 do
+						if v27 then
+							v4:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+						else
+							v4:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+						end
+					end
+				end);
+			else
+				v10 = false;
+			end
+		else
+			v10 = false;
+		end
+	end);
+	v19 = v2.Heartbeat:Connect(function()
+		if (not v26 or not (workspace.Alive:FindFirstChild(v11.Name) or v30)) then
+			v45.hit_Time = tick() * 10;
+			v45.hit_Count = 0;
+			v45.is_ball_Warping = false;
+			v45.is_Spamming = false;
+			v45.canParry = true;
+			v45.last_target = nil;
+			return;
+		end
+		local v561 = v0.Network.ServerStatsItem["Data Ping"]:GetValue() / 10;
+		local v562;
+		if v30 then
+			v562 = v9();
+		else
+			v562 = v8.getBall();
+		end
+		if not v562 then
+			v45.hit_Time = tick() * 10;
+			v45.hit_Count = 0;
+			v45.is_ball_Warping = false;
+			v45.is_Spamming = false;
+			v45.canParry = true;
+			v45.last_target = nil;
+			return;
+		end
+		v562:GetAttributeChangedSignal("target"):Once(function()
+			v45.canParry = true;
+		end);
+		if ((v562:GetAttribute("target") ~= v11.Name) or not v45.canParry) then
+			return;
+		end
+		v562:GetAttributeChangedSignal("from"):Once(function()
+			v45.last_target = workspace.Alive:FindFirstChild(v562:GetAttribute("from"));
+		end);
+		v43(v11.Character.PrimaryPart);
+		local v563 = v11.Character.PrimaryPart.Position;
+		local v564 = v562.Position;
+		local v565 = v562.AssemblyLinearVelocity;
+		if v562:FindFirstChild("zoomies") then
+			v565 = v562.zoomies.VectorVelocity;
+		end
+		local v566 = (v11.Character.PrimaryPart.Position - v564).Unit;
+		local v567 = (v11.Character.PrimaryPart.Position - v564).Magnitude;
+		local v568 = v566:Dot(v565.Unit);
+		local v569 = v565.Magnitude;
+		if ((v569 < 25) or (v565.Y > 10)) then
+			v45.hit_Time = tick() * 10;
+			v45.hit_Count = 0;
+			v45.is_ball_Warping = false;
+			v45.is_Spamming = false;
+			v45.can_parry = true;
+			v45.last_target = nil;
+		end
+		local v570 = v11.Character.HumanoidRootPart.AssemblyLinearVelocity;
+		local v571 = v570.Magnitude > 0;
+		local v572 = math.min(v569 / 1000, 0.1);
+		local v573 = (v567 - (v561 / 15.3)) - (v569 / 3.5);
+		local v574 = v79.HumanoidRootPart.Position;
+		local v575 = v11:DistanceFromCharacter(v574);
+		local v576 = v11:DistanceFromCharacter(v24.HumanoidRootPart.Position);
+		local v577 = math.min(v575 / 10000, 0.1);
+		local v578 = (v11.Character.PrimaryPart.Position - v24.HumanoidRootPart.Position).Unit;
+		local v579 = v24.HumanoidRootPart.AssemblyLinearVelocity;
+		local v580 = v579.Magnitude > 0;
+		local v581 = v580 and math.max(v578:Dot(v579.Unit), 0);
+		v45.spam_Range = math.clamp(math.max(math.max(v561 / 8.5, 15) + (v569 / 7.5), 8.4), 25, 1200);
+		v7 = 3 - (v561 / 100);
+		v6 = 6.1 - (v561 / 100);
+		v45.parry_Range = math.max(math.max(v561, 3.5) + (v569 / v7), v6);
+		if v580 then
+			v45.is_Spamming = (v45.hit_Count > 1) or ((v575 <= v45.spam_Range) and (v567 < 18) and (v569 > 8) and (v565.Y > -50) and (v568 > 0.15));
+		else
+			v45.is_Spamming = (v45.hit_Count > 1) or ((v575 <= v45.spam_Range) and (v567 < 18) and (v569 > 8) and (v565.Y > -50) and (v568 > 0.15));
+		end
+		local v584 = math.abs(math.acos(v566:Dot(v565.Unit)));
+		if (v568 < -0.2) then
+			v45.ball_Warping = tick();
+		end
+		task.spawn(function()
+			if (((tick() - v45.ball_Warping) >= ((0.15 + v577) - v572)) or (v567 <= 10)) then
+				v45.is_ball_Warping = false;
+				return;
+			end
+			if v45.last_target then
+				if (((v564 - v45.last_target.HumanoidRootPart.Position).Magnitude > 35.5) or (v575 <= 12)) then
+					v45.is_ball_Warping = false;
+				end
+			end
+			v45.is_ball_Warping = true;
+		end);
+		if ((v567 <= v45.parry_Range) and not v45.is_ball_Warping and (v569 > 0) and (v568 > 0.1)) then
+			local v747 = v12.CFrame;
+			local v748 = v574.X;
+			local v749 = v574.Y;
+			if v27 then
+				v4:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+			else
+				v4:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+			end
+			v45.hit_Count = v45.hit_Count + 1;
+			task.delay(0.55 + (v561 / 100), function()
+				v45.hit_Count = v45.hit_Count - 1;
+			end);
+			v45.hit_Time = tick();
+			v45.canParry = false;
+		end
+		task.spawn(function()
+			repeat
+				v2.PreRender:Wait();
+			until (tick() - v45.hit_Time) >= 1 
+			v45.canParry = true;
+		end);
+	end);
+end);
+local function v81(v238)
+	if (v238 and v238.Disconnect) then
+		v238:Disconnect();
+	end
+end
+local function v82(v239, v240, v241)
+	if v239 then
+		if not _G[v240] then
+			_G[v240] = v2[v241]:Connect(function()
+			end);
+		end
+	else
+		v81(_G[v240]);
+		_G[v240] = nil;
+	end
+end
+v2.Heartbeat:Connect(function()
+	v82(v33, "visualizervar", "Heartbeat");
+	v82(v29, "autospamvar", "Heartbeat");
+	v82(v26, "autoparryvar", "Heartbeat");
+	v82(v36, "tphitvar", "Heartbeat");
+	v82(v35, "autowinvar", "Heartbeat");
+	v82(v34, "aivar", "RenderStepped");
+end);
+task.defer(function()
+	while task.wait(1) do
+		if v37 then
+			v5:Create(game:GetService("Lighting"), TweenInfo.new(3), {ClockTime=1.9}):Play();
+		else
+			v5:Create(game:GetService("Lighting"), TweenInfo.new(3), {ClockTime=13.5}):Play();
+		end
+	end
+end);
+task.defer(function()
+	game:GetService("RunService").Heartbeat:Connect(function()
+		if not v11.Character then
+			return;
+		end
+		if v39 then
+			local v753 = game:GetObjects("rbxassetid://17483658369")[1];
+			v753.Name = "nurysium_fx";
+			if v11.Character.PrimaryPart:FindFirstChild("nurysium_fx") then
+				return;
+			end
+			local v755 = Instance.new("Attachment", v11.Character.PrimaryPart);
+			local v756 = Instance.new("Attachment", v11.Character.PrimaryPart);
+			v755.Position = Vector3.new(0, -2.411, 0);
+			v756.Position = Vector3.new(0, 2.504, 0);
+			v753.Parent = v11.Character.PrimaryPart;
+			v753.Attachment0 = v755;
+			v753.Attachment1 = v756;
+		elseif v11.Character.PrimaryPart:FindFirstChild("nurysium_fx") then
+			v11.Character.PrimaryPart['nurysium_fx']:Destroy();
+		end
+	end);
+end);
+task.defer(function()
+	v2.RenderStepped:Connect(function()
+		if v38 then
+			local v763 = v8.getBall();
+			if not v763 then
+				return;
+			end
+			workspace.CurrentCamera.CFrame = workspace.CurrentCamera.CFrame:Lerp(CFrame.new(workspace.CurrentCamera.CFrame.Position, v763.Position), 1.5);
+		end
+	end);
+end);
+local v83 = false;
+local function v84()
+	settings().Rendering.QualityLevel = Enum.QualityLevel.Level01;
+	for v585, v586 in pairs(workspace:GetDescendants()) do
+		if (v586:IsA("ParticleEmitter") or v586:IsA("Trail") or v586:IsA("Smoke") or v586:IsA("Fire") or v586:IsA("Sparkles")) then
+			v586.Enabled = false;
+		elseif (v586:IsA("Decal") or v586:IsA("Texture")) then
+			v586:Destroy();
+		elseif (v586:IsA("BasePart") and ((v586.Material == Enum.Material.Grass) or (v586.Material == Enum.Material.LeafyGrass))) then
+			v586.Transparency = 1;
+		end
+	end
+	local v244 = game:GetService("Lighting");
+	v244.GlobalShadows = false;
+	v244.Brightness = 0;
+	v244.ClockTime = 12;
+	v244.FogEnd = 8999999488;
+	v244.EnvironmentDiffuseScale = 0;
+	v244.EnvironmentSpecularScale = 0;
+	v244.OutdoorAmbient = Color3.fromRGB(128, 128, 128);
+	local v252 = game.Players.LocalPlayer;
+	v252.CharacterAdded:Connect(function(v587)
+		for v652, v653 in pairs(v587:GetChildren()) do
+			if (v653:IsA("Accessory") or v653:IsA("Clothing") or v653:IsA("ShirtGraphic")) then
+				v653:Destroy();
+			end
+		end
+	end);
+end
+local function v85()
+	settings().Rendering.QualityLevel = Enum.QualityLevel.Automatic;
+	for v588, v589 in pairs(workspace:GetDescendants()) do
+		if (v589:IsA("ParticleEmitter") or v589:IsA("Trail") or v589:IsA("Smoke") or v589:IsA("Fire") or v589:IsA("Sparkles")) then
+			v589.Enabled = true;
+		elseif (v589:IsA("BasePart") and ((v589.Material == Enum.Material.Grass) or (v589.Material == Enum.Material.LeafyGrass))) then
+			v589.Transparency = 0;
+		end
+	end
+	local v255 = game:GetService("Lighting");
+	v255.GlobalShadows = true;
+	v255.Brightness = 2;
+	v255.ClockTime = 14;
+	v255.FogEnd = 1000;
+	v255.EnvironmentDiffuseScale = 1;
+	v255.EnvironmentSpecularScale = 1;
+	v255.OutdoorAmbient = Color3.fromRGB(255, 255, 255);
+end
+local v86 = false;
+local v1 = game:GetService("Players");
+local v87 = v1.LocalPlayer;
+local v88 = Color3.fromRGB(0, 255, 0);
+local v89 = 0.5;
+local function v90(v263)
+	v86 = v263;
+	for v590, v591 in ipairs(v1:GetPlayers()) do
+		if ((v591 ~= v87) and v591.Character) then
+			for v805, v806 in ipairs(v591.Character:GetChildren()) do
+				if v806:IsA("BasePart") then
+					if v263 then
+						if not v806:FindFirstChild("Chams") then
+							local v871 = Instance.new("BoxHandleAdornment");
+							v871.Name = "Chams";
+							v871.Adornee = v806;
+							v871.Color3 = v88;
+							v871.Transparency = v89;
+							v871.Size = v806.Size + Vector3.new(0.1, 0.1, 0.1);
+							v871.ZIndex = 10;
+							v871.AlwaysOnTop = true;
+							v871.Parent = v806;
+						end
+					else
+						local v865 = v806:FindFirstChild("Chams");
+						if v865 then
+							v865:Destroy();
+						end
+					end
+				end
+			end
+		end
+	end
+end
+v1.PlayerAdded:Connect(function(v264)
+	v264.CharacterAdded:Connect(function(v592)
+		if v86 then
+			v90(true);
+		end
+	end);
+end);
+v3.Remotes.ParrySuccess.OnClientEvent:Connect(function()
+	if v28 then
+		v23:Play();
+	end
+	if v31 then
+		local v654 = game:GetObjects("rbxassetid://17407244385")[1];
+		v654.Parent = v8.getBall();
+		v654:Emit(3);
+		task.delay(5, function()
+			v654:Destroy();
+		end);
+	end
+end);
+local function v91()
+	return v87 and v87.Character;
+end
+local function v92()
+	local v265 = v91();
+	return v265 and v265:FindFirstChild("HumanoidRootPart");
+end
+local function v93()
+	local v266 = v91();
+	return v266 and v266:FindFirstChild("Humanoid");
+end
+local function v94()
+	local v267 = Workspace:FindFirstChild("Balls");
+	if v267 then
+		for v767, v768 in ipairs(v267:GetChildren()) do
+			if not v768.Anchored then
+				return v768;
+			end
+		end
+	end
+	return nil;
+end
+local function v95()
+	local v268 = v94();
+	if v268 then
+		local v656 = v87:GetNetworkPing() * 20;
+		return math.clamp((v268.Velocity.Magnitude / 2.4) + v656, 15, 200);
+	end
+	return 15;
+end
+local function v96()
+	local v269 = Instance.new("Part");
+	v269.Size = Vector3.new(7, 7, 7);
+	v269.Shape = Enum.PartType.Ball;
+	v269.Anchored = true;
+	v269.CanCollide = false;
+	v269.Material = Enum.Material.ForceField;
+	v269.Color = Visualise2color;
+	v269.Transparency = 0.5;
+	v269.Parent = workspace;
+	return v269;
+end
+local v97 = nil;
+local function v98()
+	if Visualise2 then
+		if not v97 then
+			v97 = v96();
+		end
+	elseif v97 then
+		v97:Destroy();
+		v97 = nil;
+	end
+end
+v2.Heartbeat:Connect(function()
+	if (Visualise2 and v97) then
+		local v657 = v92();
+		if v657 then
+			v97.Position = v657.Position;
+		end
+	end
+end);
+v2.RenderStepped:Connect(function()
+	v98();
+end);
+local v99;
+local function v100()
+	if v99 then
+		return;
+	end
+	v99 = Instance.new("Part");
+	v99.Shape = Enum.PartType.Ball;
+	v99.Anchored = true;
+	v99.CanCollide = false;
+	v99.CastShadow = false;
+	v99.Transparency = 1;
+	v99.Material = Enum.Material.ForceField;
+	v99.Parent = Workspace;
+end
+local function v101()
+	if not visualise then
+		if v99 then
+			v99.Transparency = 1;
+		end
+		return;
+	end
+	local v289 = v92();
+	if not v289 then
+		if v99 then
+			v99.Transparency = 1;
+		end
+		return;
+	end
+	local v290 = v95();
+	if v99 then
+		v99.Transparency = 0.5;
+		v99.Size = Vector3.new(v290 * 2, v290 * 2, v290 * 2);
+		v99.Position = v289.Position;
+		v99.Color = VisualiseColor;
+	end
+end
+local function v102(v291, v292)
+	if not BallVelocity then
+		v292.Text = "";
+		return;
+	end
+	if v291 then
+		local v664 = v291.Velocity.Magnitude;
+		v292.Text = string.format("Ball Velocity: %.2f", v664);
+	end
+end
+local function v103(v293)
+	local v294 = v293:FindFirstChild("BallVelocityDisplay");
+	if v294 then
+		return v294;
+	end
+	local v295 = Instance.new("BillboardGui");
+	v295.Name = "BallVelocityDisplay";
+	v295.Adornee = v293;
+	v295.Size = UDim2.new(0, 200, 0, 50);
+	v295.StudsOffset = Vector3.new(0, 5, 0);
+	v295.Parent = v293;
+	local v301 = Instance.new("TextLabel");
+	v301.Size = UDim2.new(1, 0, 1, 0);
+	v301.BackgroundTransparency = 1;
+	v301.TextColor3 = Color3.new(1, 1, 1);
+	v301.TextSize = 18;
+	v301.Text = "";
+	v301.Parent = v295;
+	return v301;
+end
+local v104;
+v2.RenderStepped:Connect(function()
+	if not BallVelocity then
+		if (v104 and v104:FindFirstChild("BallVelocityDisplay")) then
+			v104.BallVelocityDisplay:Destroy();
+		end
+		v104 = nil;
+		return;
+	end
+	local v308 = v94();
+	if (v308 ~= v104) then
+		if (v104 and v104:FindFirstChild("BallVelocityDisplay")) then
+			v104.BallVelocityDisplay:Destroy();
+		end
+		if v308 then
+			local v811 = v103(v308);
+			v104 = v308;
+			v2.RenderStepped:Connect(function()
+				if (v308 and v811) then
+					v102(v308, v811);
+				end
+			end);
+		end
+	end
+end);
+local function v105()
+	if not AutoFarm then
+		return;
+	end
+	local v309 = v94();
+	local v310 = v92();
+	if (not v309 or not v310) then
+		return;
+	end
+	local v311 = v309.Position;
+	if (AutoFarmType == "UnderBall") then
+		v310.CFrame = CFrame.new(v311 - Vector3.new(0, 10, 0));
+	elseif (AutoFarmType == "X Orbit") then
+		local v812 = (tick() * math.pi * 2) / (AutoFarmOrbit / 5);
+		v310.CFrame = CFrame.new(v311 + Vector3.new(math.cos(v812) * 10, 0, math.sin(v812) * 10));
+	elseif (AutoFarmType == "Y Orbit") then
+		local v855 = (tick() * math.pi * 2) / (AutoFarmOrbit / 5);
+		v310.CFrame = CFrame.new(v311 + Vector3.new(0, math.sin(v855) * 10, math.cos(v855) * 10));
+	end
+end
+local function v106()
+	if not AiPlay then
+		return;
+	end
+	local v312 = v94();
+	local v313 = v92();
+	local v314 = v93();
+	if (not v312 or not v313 or not v314) then
+		return;
+	end
+	local v315 = v312.Position;
+	local v316 = v313.Position;
+	local v317 = (v315 - v316).Magnitude;
+	if (v317 <= 20) then
+		v314:Move(Vector3.zero);
+		return;
+	end
+	local v318 = (v315 - v316).Unit;
+	local v319 = v316 + (v318 * math.min(v317 - 20, AiPlaySpeed / 10));
+	if (AiPlayType == "Legit") then
+		v314.WalkSpeed = 35;
+	elseif (AiPlayType == "Hacker") then
+		v314.WalkSpeed = AiPlaySpeed;
+	end
+	v314:MoveTo(v319);
+end
+v2.RenderStepped:Connect(function()
+	v101();
+	v105();
+	v106();
+end);
+v100();
+task.defer(function()
+	while task.wait(1) do
+		if Nightmode then
+			v5:Create(game:GetService("Lighting"), TweenInfo.new(3), {ClockTime=1.9}):Play();
+		else
+			v5:Create(game:GetService("Lighting"), TweenInfo.new(3), {ClockTime=13.5}):Play();
+		end
+	end
+end);
+task.defer(function()
+	while task.wait(1) do
+		if ShadersEffect then
+			v5:Create(game:GetService("Lighting").Bloom, TweenInfo.new(4), {Size=150,Intensity=2.5}):Play();
+			v5:Create(game:GetService("Lighting").ColorCorrection, TweenInfo.new(4), {Saturation=0.3,Contrast=0.2,Brightness=0.1}):Play();
+			v5:Create(game:GetService("Lighting").DepthOfField, TweenInfo.new(4), {FocusDistance=30,InFocusRadius=15,NearIntensity=0.7,FarIntensity=0.7}):Play();
+			game.Lighting.GlobalShadows = true;
+			game.Lighting.Ambient = Color3.fromRGB(100, 100, 100);
+			game.Lighting.OutdoorAmbient = Color3.fromRGB(80, 80, 80);
+			game:GetService("Lighting").Bloom.Enabled = true;
+			game:GetService("Lighting").ColorCorrection.Enabled = true;
+			game:GetService("Lighting").DepthOfField.Enabled = true;
+		else
+			game.Lighting.GlobalShadows = false;
+			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255);
+			game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255);
+			game:GetService("Lighting").Bloom.Enabled = false;
+			game:GetService("Lighting").ColorCorrection.Enabled = false;
+			game:GetService("Lighting").DepthOfField.Enabled = false;
+		end
+	end
+end);
+local function v107()
+	local v320 = nil;
+	local v321 = math.huge;
+	for v593, v594 in pairs(workspace.Alive:GetChildren()) do
+		if (v594:IsA("Model") and (v594.Name ~= plr.Name)) then
+			local v781 = (plr.Character.HumanoidRootPart.Position - v594.HumanoidRootPart.Position).Magnitude;
+			if (v781 < v321) then
+				v320 = v594;
+				v321 = v781;
+			end
+		end
+	end
+	return v320;
+end
+local function v108()
+	while getgenv().CanSpam do
+		VIM:SendMouseButtonEvent(0, 0, 0, true, game, 0);
+		wait(spamspeed);
+	end
+end
+spawn(function()
+	rs.PreRender:Connect(function()
+		if not getgenv().AutoSpam then
+			return;
+		end
+		local v595 = v107();
+		if (v595 and v595:FindFirstChild("Humanoid") and (v595.Humanoid.Health > 0)) then
+			local v782 = (plr.Character.HumanoidRootPart.Position - v595.HumanoidRootPart.Position).Magnitude;
+			if ((v782 <= getgenv().SpamDistance) and not getgenv().CanSpam) then
+				getgenv().CanSpam = true;
+				spawn(v108);
+			else
+				getgenv().CanSpam = false;
+			end
+		end
+	end);
+end);
+local function v109()
+	return game.Players.LocalPlayer;
+end
+local function v110()
+	local v322 = v109().Character;
+	if v322 then
+		return v322;
+	end
+end
+local function v111()
+	local v323 = v110():FindFirstChild("HumanoidRootPart");
+	if v323 then
+		return v323;
+	end
+end
+local function v112()
+	pcall(function()
+		game.Players.LocalPlayer.Character.Humanoid.Jump = true;
+	end);
+end
+local function v113()
+	local v324 = workspace:WaitForChild("Alive", 20):GetChildren();
+	local v325 = 0;
+	for v597, v598 in pairs(v324) do
+		if (v598 and v598:FindFirstChild("Humanoid") and (v598.Humanoid.Health > 50)) then
+			v325 = v325 + 1;
+		end
+	end
+	return v325;
+end
+local function v114()
+	local v326 = workspace:WaitForChild("Alive"):GetChildren();
+	local v327 = math.huge;
+	local v328 = game.Players.LocalPlayer;
+	local v329 = v328.Character:FindFirstChild("HumanoidRootPart");
+	local v330 = nil;
+	for v599, v600 in pairs(v326) do
+		if ((v600.Name ~= v328.Name) and v329 and v600:FindFirstChild("HumanoidRootPart") and v600:FindFirstChild("Humanoid") and (v600.Humanoid.Health > 50)) then
+			local v783 = (v600.HumanoidRootPart.Position - v329.Position).Magnitude;
+			if (v783 <= v327) then
+				v327 = v783;
+				v330 = v600;
+			end
+		end
+	end
+	return v330;
+end
+local function v115()
+	task.spawn(function()
+		local v601 = game:GetService("VirtualInputManager");
+		v601:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+		v601:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+		warn("Spamming using key kemote");
+	end);
+end
+task.spawn(function()
+	while task.wait() do
+		if getgenv().SpamClickA then
+			v115();
+		end
+	end
+end);
+local function v116()
+	local v331 = workspace:WaitForChild("Balls", 20);
+	local v332 = Vector3.new();
+	local v333 = tick();
+	local v334 = v331;
+	local v335 = "";
+	local v336 = 0;
+	local v337 = 0;
+	local v338 = 0;
+	task.spawn(function()
+		local v602 = tick();
+		local v603 = Vector3.new();
+		while getgenv().DetectSpam do
+			task.wait();
+			local v668 = v111();
+			local v669 = v331:FindFirstChildOfClass("Part");
+			if (v668 and v669) then
+				v338 = (v668.Position - v669.Position).Magnitude;
+				v337 = (v603 - v669.Position).Magnitude;
+				if ((tick() - v602) >= (1 / 60)) then
+					v602 = tick();
+					v603 = v669.Position;
+				end
+			end
+		end
+	end);
+	while getgenv().DetectSpam do
+		task.wait();
+		local v604 = v331:FindFirstChildOfClass("Part");
+		local v605 = v111();
+		local v606 = v114();
+		if not v604 then
+			getgenv().SpamClickA = false;
+		end
+		if (v604 and v604:GetAttribute("realBall") and (v334 ~= v604)) then
+			v604.Changed:Connect(function()
+				task.wait();
+				local v817 = v331:FindFirstChildOfClass("Part");
+				if v817 then
+					v335 = v817:GetAttribute("target");
+					if ((v606 and (v335 == v606.Name)) or (v109() and (v335 == v109().Name))) then
+						v336 = v336 + 1;
+					else
+						v336 = 0;
+					end
+					local v858 = v606 and v606:FindFirstChild("HumanoidRootPart");
+					local v859 = v606 and v606:FindFirstChild("Highlight");
+					local v860 = v110() and v110():FindFirstChild("Highlight");
+					if ((v605 and v859 and v858) or (v605 and v860 and v858)) then
+						local v866 = (v606.HumanoidRootPart.Position - v605.Position).Magnitude;
+						local v867 = (v817.Position - v605.Position).Magnitude;
+						if (v113() < 3) then
+							if ((v866 <= 30) and (v867 <= 35) and (v336 >= 2)) then
+								getgenv().SpamClickA = true;
+							else
+								getgenv().SpamClickA = false;
+							end
+						elseif ((v866 <= 30) and (v867 <= 35) and (v336 >= 3)) then
+							getgenv().SpamClickA = true;
+						else
+							getgenv().SpamClickA = false;
+						end
+					else
+						getgenv().SpamClickA = false;
+					end
+				end
+			end);
+			v334 = v604;
+		end
+	end
+end
+getgenv().DetectSpam = false;
+v116();
+local v118 = game:GetService("UserInputService");
+local v119 = loadstring(game:HttpGet("https://raw.githubusercontent.com/Fsploit/UI-lib/refs/heads/main/Fluentremake.lua"))();
+local v120 = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))();
+local v121 = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))();
+local v122 = v119:CreateWindow({Title="PHANTOMZ PREMIUM",SubTitle="By PhantomZ",TabWidth=150,Size=UDim2.fromOffset(500, 250),Acrylic=false,Theme="Jungle",MinimizeKey=Enum.KeyCode.LeftControl});
+local v123 = {Home=v122:AddTab({Title="Info",Icon="newspaper"}),Main=v122:AddTab({Title="Combat",Icon="shield"}),Visual=v122:AddTab({Title="Utilities",Icon="box"}),Farm=v122:AddTab({Title="Farm",Icon="sprout"}),World=v122:AddTab({Title="World",Icon="cloud"}),Config=v122:AddTab({Title="Player",Icon="user"})};
+local v124 = v123.Home:AddSection("Information");
+v123.Home:AddParagraph({Title="PhantomZ",Content=[[Welcome to PhantomZ!
+    - Fixed Parry
+    - Fixed Spam
+    - Fixed Manual Spam
+    - Anti cheat Bypassed
+    - adeded Farm
+    - Fixed Lag
+    - Fixed System
+    - Removed 3 other parrt
+    ]]});
+v123.Home:AddParagraph({Title="ikorz",Content=[[This Script was Made By PhantomZ]]});
+local v125 = v123.Main:AddSection("Main");
+local v126 = v123.Main:AddToggle("Config", {Title="Auto Parry",Description="Parrys the ball when it comes to you",Default=false});
+v126:OnChanged(function(v339)
+	v27 = v339;
+	v26 = v339;
+end);
+local v126 = v123.Main:AddToggle("Config", {Title="Auto Spam",Description="Spams the ball within the given range.",Default=false});
+v126:OnChanged(function(v340)
+	getgenv().AutoSpam = v340;
+	getgenv().DetectSpam = v340;
+	v29 = v340;
+end);
+v123.Main:AddButton({Title="Manual spam",Description="Spams the ball really fast",Callback=function()
+	local v343 = false;
+	local v344 = 0.001;
+	function spamLoop()
+		while v343 do
+			v4:SendMouseButtonEvent(0, 0, 0, true, game, v344);
+			v4:SendMouseButtonEvent(0, 0, 0, false, game, v344);
+			wait(v344);
+		end
+	end
+	local v345 = {};
+	v345["1"] = Instance.new("ScreenGui", (game:GetService("RunService"):IsStudio() and game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")) or game.CoreGui);
+	v345["1"]['IgnoreGuiInset'] = true;
+	v345["1"]['ScreenInsets'] = Enum.ScreenInsets.DeviceSafeInsets;
+	v345["1"]['Name'] = [[ikorz]];
+	v345["1"]['ZIndexBehavior'] = Enum.ZIndexBehavior.Sibling;
+	v345["1"]['ResetOnSpawn'] = false;
+	v345["2"] = Instance.new("Frame", v345["1"]);
+	v345["2"]['BorderSizePixel'] = 0;
+	v345["2"]['BackgroundColor3'] = Color3.fromRGB(255, 255, 255);
+	v345["2"]['Size'] = UDim2.new(1, 0, 1, 0);
+	v345["2"]['BorderColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["2"]['Name'] = [[MainFrame]];
+	v345["2"]['BackgroundTransparency'] = 1;
+	v345["3"] = Instance.new("Frame", v345["2"]);
+	v345["3"]['BorderSizePixel'] = 0;
+	v345["3"]['BackgroundColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["3"]['Size'] = UDim2.new(0.17922, 0, 0.24153, 0);
+	v345["3"]['Position'] = UDim2.new(0.41004, 0, 0.37941, 0);
+	v345["3"]['BorderColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["3"]['Name'] = [[ikorz]];
+	v345["4"] = Instance.new("UICorner", v345["3"]);
+	v345["5"] = Instance.new("Frame", v345["3"]);
+	v345["5"]['ZIndex'] = 0;
+	v345["5"]['BorderSizePixel'] = 0;
+	v345["5"]['Size'] = UDim2.new(1, 0, 1, 0);
+	v345["5"]['Name'] = [[DropShadowHolder]];
+	v345["5"]['BackgroundTransparency'] = 1;
+	v345["6"] = Instance.new("ImageLabel", v345["5"]);
+	v345["6"]['ZIndex'] = 0;
+	v345["6"]['BorderSizePixel'] = 0;
+	v345["6"]['SliceCenter'] = Rect.new(49, 49, 450, 450);
+	v345["6"]['ScaleType'] = Enum.ScaleType.Slice;
+	v345["6"]['ImageTransparency'] = 0.5;
+	v345["6"]['ImageColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["6"]['AnchorPoint'] = Vector2.new(0.5, 0.5);
+	v345["6"]['Image'] = [[rbxassetid://6014261993]];
+	v345["6"]['Size'] = UDim2.new(1, 47, 1, 47);
+	v345["6"]['BackgroundTransparency'] = 1;
+	v345["6"]['Name'] = [[DropShadow]];
+	v345["6"]['Position'] = UDim2.new(0.5, 0, 0.5, 0);
+	v345["7"] = Instance.new("TextLabel", v345["3"]);
+	v345["7"]['TextWrapped'] = true;
+	v345["7"]['BorderSizePixel'] = 0;
+	v345["7"]['TextXAlignment'] = Enum.TextXAlignment.Left;
+	v345["7"]['TextScaled'] = true;
+	v345["7"]['BackgroundColor3'] = Color3.fromRGB(255, 255, 255);
+	v345["7"]['TextSize'] = 14;
+	v345["7"]['FontFace'] = Font.new([[rbxassetid://11702779517]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	v345["7"]['TextColor3'] = Color3.fromRGB(255, 255, 255);
+	v345["7"]['BackgroundTransparency'] = 1;
+	v345["7"]['Size'] = UDim2.new(0.74319, 0, 0.10366, 0);
+	v345["7"]['BorderColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["7"]['Text'] = [[ikorz]];
+	v345["7"]['Position'] = UDim2.new(0.03502, 0, 0, 0);
+	v345["8"] = Instance.new("TextButton", v345["3"]);
+	v345["8"]['BorderSizePixel'] = 0;
+	v345["8"]['TextTransparency'] = 1;
+	v345["8"]['TextSize'] = 14;
+	v345["8"]['TextColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["8"]['BackgroundColor3'] = Color3.fromRGB(255, 255, 255);
+	v345["8"]['FontFace'] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+	v345["8"]['Size'] = UDim2.new(0.92607, 0, 0.73171, 0);
+	v345["8"]['BackgroundTransparency'] = 1;
+	v345["8"]['BorderColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["8"]['Position'] = UDim2.new(0.03502, 0, 0.17683, 0);
+	v345["9"] = Instance.new("TextLabel", v345["8"]);
+	v345["9"]['TextWrapped'] = true;
+	v345["9"]['BorderSizePixel'] = 0;
+	v345["9"]['TextTransparency'] = 1;
+	v345["9"]['TextScaled'] = true;
+	v345["9"]['BackgroundColor3'] = Color3.fromRGB(255, 255, 255);
+	v345["9"]['TextSize'] = 14;
+	v345["9"]['FontFace'] = Font.new([[rbxassetid://11702779517]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	v345["9"]['TextColor3'] = Color3.fromRGB(0, 255, 0);
+	v345["9"]['BackgroundTransparency'] = 1;
+	v345["9"]['Size'] = UDim2.new(1, 0, 0.575, 0);
+	v345["9"]['BorderColor3'] = Color3.fromRGB(0, 0, 0);
+	v345["9"]['Text'] = [[ON]];
+	v345["9"]['Name'] = [[ON]];
+	v345["9"]['Position'] = UDim2.new(0, 0, 0.15, 0);
+	v345['a'] = Instance.new("UIGradient", v345["9"]);
+	v345['a']['Rotation'] = 45;
+	v345['a']['Offset'] = Vector2.new(0, 0.3);
+	v345['a']['Color'] = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(101, 101, 101))});
+	v345['b'] = Instance.new("TextLabel", v345["8"]);
+	v345['b']['TextWrapped'] = true;
+	v345['b']['BorderSizePixel'] = 0;
+	v345['b']['TextScaled'] = true;
+	v345['b']['BackgroundColor3'] = Color3.fromRGB(255, 255, 255);
+	v345['b']['TextSize'] = 14;
+	v345['b']['FontFace'] = Font.new([[rbxassetid://11702779517]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	v345['b']['TextColor3'] = Color3.fromRGB(255, 0, 0);
+	v345['b']['BackgroundTransparency'] = 1;
+	v345['b']['MaxVisibleGraphemes'] = 6;
+	v345['b']['Size'] = UDim2.new(1, 0, 0.575, 0);
+	v345['b']['BorderColor3'] = Color3.fromRGB(0, 0, 0);
+	v345['b']['Text'] = [[OFF]];
+	v345['b']['Name'] = [[OFF]];
+	v345['b']['Position'] = UDim2.new(0, 0, 0.15, 0);
+	v345['c'] = Instance.new("UIGradient", v345['b']);
+	v345['c']['Rotation'] = 45;
+	v345['c']['Offset'] = Vector2.new(0, 0.3);
+	v345['c']['Color'] = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(101, 101, 101))});
+	v345['d'] = Instance.new("LocalScript", v345["8"]);
+	v345['e'] = Instance.new("LocalScript", v345["3"]);
+	v345['f'] = Instance.new("UIAspectRatioConstraint", v345["3"]);
+	v345['f']['AspectRatio'] = 1.56489;
+	local function v457()
+		local v607 = v345['d'];
+		local v608 = false;
+		local v609 = game:GetService("TweenService");
+		function Tween(v670, v671, v672, v673)
+			local v674 = v609:Create(v670, v672, v671);
+			v674.Completed:Connect(v673 or function()
+			end);
+			v674:Play();
+		end
+		local v610 = {game:GetService("AdService"),game:GetService("SocialService")};
+		local v611 = nil;
+		function resolve_parry_Remote()
+			for v785, v786 in v610 do
+				local v787 = v786:FindFirstChildOfClass("RemoteEvent");
+				if (v787 and v787.Name:find("\n")) then
+					v611 = v787;
+					break;
+				end
+			end
+		end
+		local v612 = workspace.CurrentCamera;
+		local v613 = game.Players.LocalPlayer:GetMouse();
+		local function v614()
+			local v675 = nil;
+			local v676 = math.huge;
+			for v788, v789 in pairs(workspace.Alive:GetChildren()) do
+				if (v789:IsA("Model") and v789:FindFirstChild("HumanoidRootPart")) then
+					local v835 = v612:WorldToViewportPoint(v789.HumanoidRootPart.Position);
+					local v836 = (Vector2.new(v835.X, v835.Y) - Vector2.new(v613.X, v613.Y)).Magnitude;
+					if (v836 < v676) then
+						v675 = v789;
+						v676 = v836;
+					end
+				end
+			end
+			return v675;
+		end
+		v607.Parent.MouseButton1Click:Connect(function()
+			v608 = not v608;
+			if v608 then
+				Tween(v607.Parent.ON, {TextTransparency=0}, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out));
+				Tween(v607.Parent.OFF, {TextTransparency=1}, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out));
+				v343 = true;
+				print("Spamming started.");
+				coroutine.wrap(spamLoop)();
+			else
+				Tween(v607.Parent.ON, {TextTransparency=1}, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out));
+				Tween(v607.Parent.OFF, {TextTransparency=0}, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out));
+				v343 = false;
+				print("Spamming stopped.");
+			end
+		end);
+	end
+	task.spawn(v457);
+	local function v458()
+		local v615 = v345['e'];
+		local v616 = game:GetService("UserInputService");
+		local v617 = v615.Parent;
+		local v618;
+		local v619;
+		local v620;
+		local v621;
+		local function v622(v677)
+			local v678 = v677.Position - v620;
+			local v679 = UDim2.new(v621.X.Scale, v621.X.Offset + v678.X, v621.Y.Scale, v621.Y.Offset + v678.Y);
+			local v680 = game:GetService("TweenService");
+			local v681 = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out);
+			local v682 = v680:Create(v617, v681, {Position=v679});
+			v682:Play();
+		end
+		v617.InputBegan:Connect(function(v683)
+			if ((v683.UserInputType == Enum.UserInputType.MouseButton1) or (v683.UserInputType == Enum.UserInputType.Touch)) then
+				v618 = true;
+				v620 = v683.Position;
+				v621 = v617.Position;
+				v683.Changed:Connect(function()
+					if (v683.UserInputState == Enum.UserInputState.End) then
+						v618 = false;
+					end
+				end);
+			end
+		end);
+		v617.InputChanged:Connect(function(v684)
+			if ((v684.UserInputType == Enum.UserInputType.MouseMovement) or (v684.UserInputType == Enum.UserInputType.Touch)) then
+				v619 = v684;
+			end
+		end);
+		v616.InputChanged:Connect(function(v685)
+			if (v618 and (v685 == v619)) then
+				v622(v685);
+			end
+		end);
+	end
+	task.spawn(v458);
+	return v345["1"], require;
+end});
+v123.Main:AddButton({Title="PC Spam",Description="Press 'E' to toggle the spam for pc.",Callback=function()
+	v119:Notify({Title="PhantomZ",Content="Executed. please note your keybind spam is E",Duration=10});
+	local v459 = false;
+	local v460 = game:GetService("VirtualInputManager");
+	local function v461()
+		v459 = not v459;
+		while v459 do
+			v460:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+			v460:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+			v460:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+			v460:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+			v460:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+			v460:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+			game:GetService("RunService").Heartbeat:Wait();
+		end
+	end
+	local v462 = game:GetService("UserInputService");
+	v462.InputBegan:Connect(function(v623, v624)
+		if ((v623.KeyCode == Enum.KeyCode.E) and not v624) then
+			v461();
+		end
+	end);
+end});
+v123.Main:AddButton({Title="PC Spam",Description="Press and hold 'R' to spam for PC.",Callback=function()
+	v119:Notify({Title="PhantomZ",Content="Executed. Hold 'R' to spam.",Duration=10});
+	local v463 = false;
+	local v464 = game:GetService("VirtualInputManager");
+	local function v465()
+		while v463 do
+			v464:SendMouseButtonEvent(0, 0, 0, true, game, 0.001);
+			v464:SendMouseButtonEvent(0, 0, 0, false, game, 0.001);
+			game:GetService("RunService").Heartbeat:Wait();
+		end
+	end
+	local v466 = game:GetService("UserInputService");
+	v466.InputBegan:Connect(function(v625, v626)
+		if ((v625.KeyCode == Enum.KeyCode.R) and not v626) then
+			v463 = true;
+			task.spawn(v465);
+		end
+	end);
+	v466.InputEnded:Connect(function(v627)
+		if (v627.KeyCode == Enum.KeyCode.R) then
+			v463 = false;
+		end
+	end);
+end});
+local v127 = v123.Visual:AddSection("Utilitys");
+local v126 = v127:AddToggle("Visualize", {Title="View Part",Description="Visualize The Auto Parry [best for debug]",Default=false});
+v126:OnChanged(function(v467)
+	v33 = v467;
+end);
+local v126 = v127:AddToggle("Nightmode", {Title="View ball velocity",Description="Views the ball speed [Best for Debug]",Default=false});
+v126:OnChanged(function(v468)
+	BallVelocity = v468;
+end);
+local v128 = v123.Farm:AddSection("Farms");
+local v129 = v128:AddDropdown("Dropdown", {Title="Farm Type",Values={"UnderBall","X Orbit","Y Orbit"},Multi=false,Default=1});
+v129:SetValue("UnderBall");
+v129:OnChanged(function(v469)
+	AutoFarmType = v469;
+end);
+local v126 = v128:AddToggle("AutoCurve", {Title="Auto Farm",Description="Farms the ball",Default=false});
+v126:OnChanged(function(v470)
+	AutoFarm = v470;
+end);
+local v130 = v128:AddSlider("Slider", {Title="Orbit Speed",Description="This is for the Orbit on the farm.",Default=20,Min=0,Max=300,Rounding=1,Callback=function(v471)
+	AutoFarmOrbit = v471;
+end});
+local v129 = v128:AddDropdown("Dropdown", {Title="Ai Type",Values={"Legit","Hacker"},Multi=false,Default=1});
+v129:SetValue("Legit");
+v129:OnChanged(function(v472)
+	AiPlayType = v472;
+end);
+local v126 = v128:AddToggle("AutoCurve", {Title="Ai Play",Description="Farms the ball by Auto playing",Default=false});
+v126:OnChanged(function(v473)
+	AiPlay = v473;
+end);
+local v130 = v128:AddSlider("Slider", {Title="Hacker Speed",Description="This is for the Hacker mode on the Ai Play.",Default=20,Min=0,Max=300,Rounding=1,Callback=function(v474)
+	AiPlaySpeed = v474;
+end});
+local v131 = v123.World:AddSection("World");
+v131:AddButton({Title="Fps Boost",Description="Reduces Graphics and givs you more fps",Callback=function()
+	local v475 = true;
+	local v476 = game;
+	local v477 = v476.Workspace;
+	local v478 = v476.Lighting;
+	local v479 = v477.Terrain;
+	v479.WaterWaveSize = 0;
+	v479.WaterWaveSpeed = 0;
+	v479.WaterReflectance = 0;
+	v479.WaterTransparency = 0;
+	v478.GlobalShadows = false;
+	v478.FogEnd = 8999999488;
+	v478.Brightness = 0;
+	settings().Rendering.QualityLevel = "Level01";
+	for v628, v629 in pairs(v476:GetDescendants()) do
+		if (v629:IsA("Part") or v629:IsA("Union") or v629:IsA("CornerWedgePart") or v629:IsA("TrussPart")) then
+			v629.Material = "Plastic";
+			v629.Reflectance = 0;
+		elseif (v629:IsA("Decal") or (v629:IsA("Texture") and v475)) then
+			v629.Transparency = 1;
+		elseif (v629:IsA("ParticleEmitter") or v629:IsA("Trail")) then
+			v629.Lifetime = NumberRange.new(0);
+		elseif v629:IsA("Explosion") then
+			v629.BlastPressure = 1;
+			v629.BlastRadius = 1;
+		elseif (v629:IsA("Fire") or v629:IsA("SpotLight") or v629:IsA("Smoke") or v629:IsA("Sparkles")) then
+			v629.Enabled = false;
+		elseif v629:IsA("MeshPart") then
+			v629.Material = "Plastic";
+			v629.Reflectance = 0;
+			v629.TextureID = 10385902758728956;
+		end
+	end
+	for v630, v631 in pairs(v478:GetChildren()) do
+		if (v631:IsA("BlurEffect") or v631:IsA("SunRaysEffect") or v631:IsA("ColorCorrectionEffect") or v631:IsA("BloomEffect") or v631:IsA("DepthOfFieldEffect")) then
+			v631.Enabled = false;
+		end
+	end
+end});
+local v126 = v131:AddToggle("Config", {Title="Night Mode",Description="Toggles Night Mode",Default=false});
+v126:OnChanged(function(v488)
+	Nightmode = v488;
+end);
+local v126 = v131:AddToggle("Config", {Title="Shaders",Description="Toggles Shaders",Default=true});
+v126:OnChanged(function(v489)
+	ShadersEffect = v489;
+end);
+local v132 = v123.Config:AddSection("Player");
+local v130 = v132:AddSlider("Slider", {Title="Walk speed",Description="Edits the players walkspeed",Default=30,Min=0,Max=500,Rounding=1,Callback=function(v490)
+	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v490;
+	print("A PhantomZ script");
+end});
+local v130 = v132:AddSlider("Slider", {Title="Jump power",Description="Edits The player Jump Power",Default=40,Min=0,Max=500,Rounding=1,Callback=function(v492)
+	game.Players.LocalPlayer.Character.Humanoid.JumpPower = v492;
+	print("A PhantomZ script");
+end});
+local v130 = v132:AddSlider("Slider", {Title="FOV",Description="Edits the Camera Field of View [FOV]",Default=70,Min=0,Max=500,Rounding=1,Callback=function(v494)
+	local v495 = v494;
+	local v496 = workspace.CurrentCamera;
+	v496.FieldOfView = v495;
+	print("A PhantomZ script");
+end});
+local v130 = v132:AddSlider("Slider", {Title="Gravity",Description="Edits your Gravity",Default=197,Min=0,Max=500,Rounding=1,Callback=function(v498)
+	workspace.Gravity = v498;
+	print("A PhantomZ script");
+end});
